@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>两数比大小</title>
+    <style>
+      #app {
+        width: 600px;
+        margin: 0 auto;
+        border: 2px solid black;
+      }
+      .result {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <div id="app">
+      <p>
+        请输入第1个数：<input
+          type="text"
+          v-model="firstNumber"
+          placeholder="请输入第1个数" />
+      </p>
+      <p>
+        请输入第2个数：<input
+          type="text"
+          v-model="secondNumber"
+          placeholder="请输入第2个数" />
+      </p>
+      <p>比较大小：<button @click="compare">比较</button></p>
+      <p class="result">比较的结果：{{ result }}</p>
+    </div>
+
+    <script>
+      const app = {
+        data() {
+          return {
+            firstNumber: null,
+            secondNumber: null,
+            result: null,
+          };
+        },
+
+        methods: {
+          compare() {
+            if (!this.firstNumber || !this.secondNumber) {
+              alert('请正确输入两个数');
+              return;
+            }
+
+            if (this.firstNumber > this.secondNumber) {
+              this.result = '第1个数大于第2个数';
+            } else if (this.firstNumber < this.secondNumber) {
+              this.result = '第1个数小于第2个数';
+            } else {
+              this.result = '第1个数等于第2个数';
+            }
+          },
+        },
+
+        watch: {
+          secondNumber(value, oldValue) {
+            if (value > 100) {
+              alert('第2个数数值超过100');
+            }
+          },
+        },
+      };
+
+      Vue.createApp(app).mount('#app');
+    </script>
+  </body>
+</html>
