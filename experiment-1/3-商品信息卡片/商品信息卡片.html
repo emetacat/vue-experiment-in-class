@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>商品信息卡片</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: white;
+        font-size: 14px;
+      }
+      #app {
+        width: 400px;
+        height: 500px;
+        margin: 30px auto;
+        display: flex;
+        flex-direction: column;
+        background: whitesmoke;
+      }
+      .upper,
+      .lower {
+        flex: 1;
+      }
+      .upper img {
+        width: 100%;
+        display: block;
+      }
+      .title {
+        margin-top: 10px;
+        font-size: 26px;
+        color: black;
+      }
+      .priceGroup {
+        margin: 10px 0;
+      }
+      .originalPrice {
+        color: black;
+        display: inline-block;
+        margin-right: 2px;
+        text-decoration: line-through;
+        vertical-align: bottom;
+      }
+      .currentPrice {
+        color: red;
+        font-size: 18px;
+        display: inline-block;
+        vertical-align: bottom;
+      }
+    </style>
+  </head>
+  <body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <div id="app">
+      <div class="upper">
+        <img src="./e-bike.jpg" alt="新日电动车" />
+      </div>
+
+      <div class="lower">
+        <h1 class="title">{{ name }}</h1>
+        <div class="priceGroup">
+          <p class="originalPrice">{{ originalPrice }}</p>
+          <p class="currentPrice">{{ currentPrice }}</p>
+        </div>
+        <p>商品描述</p>
+        <p class="description">{{ description }}</p>
+      </div>
+    </div>
+
+    <script>
+      const app = {
+        data() {
+          return {
+            name: '新日电动车',
+            originalPrice: 3200,
+            currentPrice: 2400,
+            description:
+              '新日这款电动车，搭载 60V20Ah 铅酸电池，续航可达 85KM，满足长距离出行。配备大功率强劲电机，动力充足。',
+          };
+        },
+      };
+
+      Vue.createApp(app).mount('#app');
+    </script>
+  </body>
+</html>
