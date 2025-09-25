@@ -63,8 +63,8 @@
         },
 
         watch: {
-          secondNumber(value, oldValue) {
-            if (value > 100) {
+          secondNumber(newValue, oldValue) {
+            if (newValue > 100) {
               alert('第2个数数值超过100');
             }
           },
