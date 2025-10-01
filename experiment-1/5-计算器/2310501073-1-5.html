@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2310501073-1-5 | 计算器</title>
+    <style></style>
+  </head>
+  <body>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <div id="app">
+      <h1>简易计算器</h1>
+      <input type="text" v-model="firstNumber" placeholder="请输入第1个数字" />
+      <select v-model="operator">
+        <option value="+">加 +</option>
+        <option value="-">减 -</option>
+        <option value="*">乘 ×</option>
+        <option value="/">除 ÷</option>
+      </select>
+      <input type="text" v-model="secondNumber" placeholder="请输入第2个数字" />
+      <button @click="calculate">计算</button>
+      <p>结果: {{ result }}</p>
+    </div>
+
+    <script>
+      const app = {
+        data() {
+          return {
+            firstNumber: '',
+            secondNumber: '',
+            operator: '+',
+            buttonClicked: false,
+          };
+        },
+
+        computed: {
+          result() {
+            var num1 = Number(this.firstNumber);
+            var num2 = Number(this.secondNumber);
+            var res = 0;
+
+            if (this.buttonClicked) {
+              switch (this.operator) {
+                case '+':
+                  return num1 + num2;
+                case '-':
+                  return num1 - num2;
+                case '*':
+                  return num1 * num2;
+                case '/':
+                  if (num2 === 0) {
+                    return;
+                  }
+                  return num1 / num2;
+              }
+            }
+          },
+        },
+
+        methods: {
+          calculate() {
+            if (this.firstNumber === '' || this.secondNumber === '') {
+              alert('请输入不为空的数字');
+              return;
+            }
+
+            if (this.operator === '/' && Number(this.secondNumber) === 0) {
+              alert('除数不能为0');
+              return;
+            }
+
+            // 记录点击时的快照
+            this.calcNum1 = this.firstNumber;
+            this.calcNum2 = this.secondNumber;
+            this.calcOp = this.operator;
+            this.buttonClicked = true;
+          },
+        },
+
+        // watch: {
+        //   //输入空值或者除数为0进行提示
+        //   firstNumber(newValue, oldValue) {
+        //     if (newValue === '') {
+        //       alert('请输入不为空的数字');
+        //     }
+        //   },
+
+        //   secondNumber(newValue, oldValue) {
+        //     if (newValue === '') {
+        //       alert('请输入不为空的数字');
+        //     }
+
+        //     if (newValue == 0 && this.operator == '/') {
+        //       alert('除数不能为0');
+        //     }
+        //   },
+        // },
+      };
+
+      Vue.createApp(app).mount('#app');
+    </script>
+  </body>
+</html>
