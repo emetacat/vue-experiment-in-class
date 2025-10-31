@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>简单待办列表</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #f5f6f8;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #333;
+      }
+      #app {
+        width: 360px;
+        padding: 28px 32px;
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 20px 45px rgba(31, 41, 55, 0.12);
+      }
+      h3 {
+        margin: 0 0 18px;
+        font-size: 20px;
+        color: #2f3a4a;
+      }
+      ul,
+      li {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      #app input[type='text'] {
+        width: calc(100% - 112px);
+        padding: 10px 12px;
+        border: 1px solid #d9dde5;
+        border-radius: 10px;
+        font-size: 14px;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+      #app input[type='text']:focus {
+        border-color: #2fcc71;
+        outline: none;
+        box-shadow: 0 0 0 4px rgba(47, 204, 113, 0.12);
+      }
+      #app > button {
+        padding: 10px 18px;
+        margin-left: 12px;
+        background: linear-gradient(135deg, #2fcc71, #27ae60);
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+        cursor: pointer;
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+      }
+      #app > button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 15px rgba(39, 174, 96, 0.35);
+      }
+      #app > button:active {
+        transform: translateY(0);
+        box-shadow: none;
+      }
+      ul {
+        margin-top: 18px;
+      }
+      li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        margin-top: 8px;
+        border: 1px solid #e4e8ef;
+        border-radius: 12px;
+        background-color: #fafbfc;
+        transition: border-color 0.2s ease, background-color 0.2s ease;
+      }
+      li:hover {
+        border-color: #d1d8e3;
+        background-color: #f4f6f8;
+      }
+      li input[type='checkbox'] {
+        width: 16px;
+        height: 16px;
+      }
+      .text {
+        flex: 1;
+        font-size: 14px;
+        color: #374151;
+      }
+      .done {
+        border-color: #cde8c3;
+        background-color: #f4fbf0;
+      }
+      .done .text {
+        text-decoration: line-through;
+        color: #7a8b7a;
+      }
+      .delete-btn {
+        margin-left: auto;
+        padding: 6px 10px;
+        background: none;
+        border: none;
+        color: #f05c4a;
+        cursor: pointer;
+        font-size: 14px;
+        transition: color 0.15s ease;
+      }
+      .delete-btn:hover {
+        color: #d13c28;
+      }
+      .delete-btn i {
+        pointer-events: none;
+      }
+      .stats {
+        margin-top: 20px;
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        color: #5c6473;
+      }
+      .stats .delete-btn {
+        margin-left: 12px;
+        padding: 0;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h3>待办事项</h3>
+      <input type="text" v-model="newTodo" placeholder="输入新任务..." />&nbsp;
+      <button @click="addTodo">添加</button>
+      <ul v-if="todos.length > 0">
+        <li
+          :class="{done: item.completed}"
+          v-for="(item, index) in todos"
+          :key="index">
+          <input type="checkbox" v-model="item.completed" />
+          <span class="text">{{ item.text }}</span>
+          <button class="delete-btn" @click="removeTodo(index)">
+            <i class="fas fa-times"></i>
+          </button>
+        </li>
+      </ul>
+      <div v-else>暂无任务，添加一个吧！</div>
+      <div class="stats" v-show="todos.length > 0">
+        剩余 {{ remainingCount }} 个任务未完成
+        <button class="delete-btn" @click="clearDone" v-show="doneCount > 0">
+          清除已完成
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const comApp = Vue.createApp({
+        data() {
+          return {
+            newTodo: '',
+            todos: [
+              {
+                text: '学习Vue指令',
+                completed: false,
+              },
+              {
+                text: '完成作业',
+                completed: true,
+              },
+            ],
+          };
+        },
+
+        computed: {
+          remainingCount() {
+            return this.todos.filter((item) => !item.completed).length;
+          },
+          doneCount() {
+            return this.todos.filter((item) => item.completed).length;
+          },
+        },
+
+        methods: {
+          addTodo() {
+            if (this.newTodo.trim()) {
+              this.todos.push({
+                text: this.newTodo.trim(),
+                completed: false,
+              });
+              this.newTodo = '';
+            }
+          },
+          removeTodo(index) {
+            this.todos.splice(index, 1);
+          },
+          clearDone() {
+            this.todos = this.todos.filter((item) => !item.completed);
+          },
+        },
+      }).mount('#app');
+    </script>
+  </body>
+</html>

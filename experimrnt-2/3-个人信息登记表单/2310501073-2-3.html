@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2310501073-2-3 | 个人信息登记表单</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        background-color: #f1f5f9;
+        color: #333;
+      }
+
+      #app {
+        max-width: 420px;
+        margin: 0 auto;
+        padding: 24px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+      }
+
+      h3 {
+        margin-top: 0;
+        margin-bottom: 18px;
+        font-size: 20px;
+      }
+
+      form p {
+        margin: 16px 0;
+        font-size: 14px;
+      }
+
+      input[type='text'],
+      select,
+      textarea {
+        width: 100%;
+        margin-top: 6px;
+        padding: 8px;
+        border: 1px solid #cbd5e1;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+
+      button {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 10px 18px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h3>个人信息登记</h3>
+      <form>
+        <p>
+          姓名：<br />
+          <input type="text" v-model="name" placeholder="请输入姓名" />
+        </p>
+
+        <p>
+          性别：<br />
+          <input type="radio" value="男" v-model="gender" />男
+          <input type="radio" value="女" v-model="gender" />女
+        </p>
+
+        <p>
+          年龄：<br />
+          <input type="text" v-model.number="age" placeholder="请输入年龄" />
+        </p>
+
+        <p>
+          职业：<br />
+          <select v-model="occupation">
+            <option disabled value="">请选择职业</option>
+            <option value="student">学生</option>
+            <option value="teacher">教师</option>
+            <option value="engineer">工程师</option>
+            <option value="doctor">医生</option>
+            <option value="other">其他</option>
+          </select>
+        </p>
+
+        <p>
+          爱好：<br />
+          <input
+            type="text"
+            v-model="hobby"
+            placeholder="请输入爱好，多个用逗号分隔" />
+        </p>
+
+        <p>
+          个人简介：<br />
+          <textarea
+            v-model="description"
+            placeholder="请输入个人简介"
+            cols="30"
+            rows="5"></textarea>
+        </p>
+      </form>
+      <button @click="submitForm">提交信息</button>
+
+      <h3>信息预览</h3>
+      <p><strong>姓名：</strong>{{ name }}</p>
+      <p><strong>性别：</strong>{{ gender }}</p>
+      <p><strong>年龄：</strong>{{ age }}</p>
+      <p><strong>职业：</strong>{{ occupation }}</p>
+      <p><strong>爱好：</strong>{{ hobby }}</p>
+      <p><strong>个人简介：</strong>{{ description }}</p>
+    </div>
+
+    <script>
+      const comApp = {
+        data() {
+          return {
+            name: '',
+            gender: '',
+            age: '',
+            occupation: '',
+            hobby: '',
+            description: '',
+          };
+        },
+
+        methods: {
+          submitForm() {
+            if (!this.name) {
+              alert('请输入姓名');
+              return;
+            }
+            alert('信息提交成功！');
+            console.log(
+              '个人信息：' +
+                this.name +
+                ' ' +
+                this.gender +
+                ' ' +
+                this.age +
+                ' ' +
+                this.occupation +
+                ' ' +
+                this.hobby +
+                ' ' +
+                this.description
+            );
+          },
+        },
+      };
+      Vue.createApp(comApp).mount('#app');
+    </script>
+  </body>
+</html>

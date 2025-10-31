@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2310501073-2-2 | 卧室灯控制</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+      body {
+        background-color: #f3f4f6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      #app {
+        background-color: #fff;
+        width: 280px;
+        padding: 25px;
+        text-align: center;
+        border: 1px solid #857676;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      .prompt-off {
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        background-color: #ffe6e6;
+        color: #cc0000;
+      }
+      .prompt-on {
+        padding: 10px;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        background-color: #e6ffe6;
+        color: #006600;
+      }
+      i {
+        font-size: 48px;
+        margin: 15px 0;
+        color: #555;
+        transition: color 0.3s;
+      }
+      .light-on {
+        color: #ffcc00;
+      }
+      button {
+        border: none;
+        padding: 10px 20px;
+        border-radius: 6px;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .btn-on {
+        background-color: #e74c3c;
+      }
+      .btn-off {
+        background-color: #4caf50;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>卧室灯控制</h1>
+      <div :class="[isOn ? 'prompt-on' : 'prompt-off']">
+        <p>当前状态：{{ isOn ? '已开启' : '已关闭' }}</p>
+      </div>
+      <i class="fa-lightbulb" :class="[isOn ? 'fa-solid light-on' : 'far']"></i>
+      <div>
+        <button @click="toggleLight" :class="isOn ? 'btn-on' : 'btn-off'">
+          {{ isOn ? '关闭灯光' : '开启灯光' }}
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const comApp = {
+        data() {
+          return {
+            isOn: false,
+          };
+        },
+
+        methods: {
+          toggleLight() {
+            this.isOn = !this.isOn;
+          },
+        },
+      };
+
+      Vue.createApp(comApp).mount('#app');
+    </script>
+  </body>
+</html>
