@@ -19,10 +19,10 @@
 
     <GoodsCom tag="双11">
       <template v-slot:header>
-        <img class="product-img" src="../assets/watch.jpg" alt="运动手表" />
-        <h3 class="product-title">HUAWEI WATCH GT 6 Pro</h3>
+        <img class="product-img" src="../assets/adidas.jpg" alt="外套" />
+        <h3 class="product-title">M REV JKT</h3>
         <p class="product-desc">
-          全新骑行体验，户外进阶运动，21 天超长续航，蓝宝石玻璃 & 钛合金⁠。
+          宽松版型双面可穿夹克外套，休闲风格，用途广泛⁠。
         </p>
       </template>
       <template v-slot:price>

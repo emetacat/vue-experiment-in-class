@@ -22,8 +22,8 @@
         <p class="product-desc">创新设计，打造巅峰性能 和超长续航。</p>
       </template>
       <template v-slot:price>
-        <span class="current-price">¥299</span>
-        <span class="original-price">¥399</span>
+        <span class="current-price">¥8999</span>
+        <span class="original-price">¥10,999</span>
       </template>
     </GoodsCom>
   </div>
